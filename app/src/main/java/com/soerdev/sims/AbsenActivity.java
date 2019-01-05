@@ -115,7 +115,7 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
 
         lihatpeta = (CardView) findViewById(R.id.ambilLokasi);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+       /* locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
@@ -134,15 +134,15 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
 
         if (location != null){
 
-
-            onLocationChanged(location);
+            lokasi1.setText("Lokasi Ditemukan");
+            //onLocationChanged(location);
         }else {
             lokasi1.setText("Pastikan jaringan anda sudahc \n cepat dan stabil");
-            ProgressDialog dialog = ProgressDialog.show(this, null, "Unggah Gambar . . .", false, false);
+                                                                                                        ProgressDialog dialog = ProgressDialog.show(this, null, "Unggah Gambar . . .", false, false);
 
             dialog.show();
 
-            for (int a =1; a <= 0.; a++)
+            for (int a =1; a >= 0.; a++)
             {
 
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -176,17 +176,16 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
 
         }
 
+*/
 
 
-
-
-      //  locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        //getLocation();
+    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        getLocation();
     }
 
 
 
-    /*private void getLocation (){
+    private void getLocation (){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
@@ -195,7 +194,11 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
+            ProgressDialog dialog = ProgressDialog.show(this, null, "Lihat Lokasi . . .", false, false);
+
+
             if (location !=null){
+                dialog.dismiss();
                 latti = location.getLatitude();
                 longi = location.getLongitude();
 
@@ -206,10 +209,10 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
                     @Override
                     public void onClick(View view) {
 
-                       /* Uri Koordinat = Uri.parse("geo:"+latti+","+longi);
+                       /*Uri Koordinat = Uri.parse("geo:"+latti+","+longi);
                         Intent intent = new Intent(Intent.ACTION_VIEW, Koordinat);
                         intent.setPackage("com.google.android.app.maps");
-                        startActivity(intent);
+                        startActivity(intent);*/
 
                         Uri gmmIntentUri = Uri.parse("geo:"+latti+","+longi);
                         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -221,10 +224,18 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
             else {
                 lokasi2.setText("Nyalakan GPS Anda !");
                 lokasi1.setText("");
+
+                loc();
+
             }
 
         }
 
+    }
+
+    private void loc(){
+
+        getLocation();
     }
 
     @Override
@@ -236,7 +247,7 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
                 getLocation();
                 break;
         }
-    }*/
+    }
 
     private void checkGambar() {
         if(img_absen.getDrawable() != null){
