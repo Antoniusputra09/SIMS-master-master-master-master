@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -109,7 +110,8 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
         pilihGambar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gambar();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -249,6 +251,14 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bitmap =(Bitmap)data.getExtras().get("data");
+        img_absen.setImageBitmap(bitmap);
+    }
+
     private void checkGambar() {
         if(img_absen.getDrawable() != null){
             submitAbsen.setEnabled(true);
@@ -353,7 +363,7 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
         }
     }*/
 
-   private  void  gambar(){
+/*   private  void  gambar(){
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAutoZoomEnabled(true)
@@ -381,7 +391,7 @@ public class AbsenActivity extends AppCompatActivity implements LocationListener
                 if(BuildConfig.DEBUG) error.printStackTrace();
             }
         }
-    }
+    }*/
 
     private void setToImageView(Bitmap bmp){
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
